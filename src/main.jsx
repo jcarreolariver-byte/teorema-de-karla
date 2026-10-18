@@ -18,7 +18,7 @@ function App(){
  useEffect(()=>{const hide=()=>{if(document.hidden&&engine.current.state.started&&!engine.current.state.paused)engine.current.pause()};document.addEventListener('visibilitychange',hide);return()=>{document.removeEventListener('visibilitychange',hide);engine.current.dispose();effectTimers.current.forEach(clearTimeout)}},[]);
  useEffect(()=>{if(phase==='story')storyFocus.current?.focus({preventScroll:true});if(phase==='playing')playedButton.current?.focus({preventScroll:true})},[phase,chapter]);
  useEffect(()=>{if(modalOpen)wishClose.current?.focus({preventScroll:true})},[modalOpen]);
- useEffect(()=>{if(phase==='playing'&&chapter===3&&complete&&sound.voice==='ended'){setTourState({index:0,moving:true});setPhase('tour')}},[phase,chapter,complete,sound.voice]);
+ useEffect(()=>{if(phase==='playing'&&chapter===3&&complete&&!transforming&&sound.voice==='ended'){setTourState({index:0,moving:true});setPhase('tour')}},[phase,chapter,complete,transforming,sound.voice]);
  const delayUnlock=ms=>{setTransforming(true);effectTimers.current.push(setTimeout(()=>setTransforming(false),ms))};
  const act=id=>{
   if(transforming||!canCollect({phase,paused:sound.paused,reading:reading.current,count:progress.current.length,total:mission.total,id,ordered:chapter===3}))return;

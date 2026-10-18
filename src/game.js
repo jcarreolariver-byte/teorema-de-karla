@@ -1,0 +1,11 @@
+import {kPoint,kStops,atlasLayout} from './cinema.js';
+export const missions = [
+  { name:'Origen', label:'I · EL ORIGEN', title:'Antes de ti,\nexistió el universo.', subtitle:'Y entre todas sus posibilidades, había una que llevaba a ti.', instruction:'Mantén pulsada esta luz', action:'Encender mi universo', total:1, audioIndex:0, storyIndex:0, nodes:[[-.34,-.18]], done:'Todo comienza con algo pequeño. Un punto de luz. Una posibilidad.' },
+  { name:'Viaje', label:'II · UN UNIVERSO DE POSIBILIDADES', title:'Cada encuentro\ncomienza un viaje.', subtitle:'Cinco mundos. Cinco cosas que deseo para ti.', instruction:'Toca el mundo que pulsa', action:'Acercarme al siguiente mundo', total:5, audioIndex:2, storyIndex:2, nodes:atlasLayout.map(([x,y])=>[x*.4,y*.28]), done:'He buscado una unidad para medir lo mucho que te quiero. Ninguna parece servir.' },
+  { name:'Encuentro', label:'III · LA IMPROBABLE COINCIDENCIA', title:'Había mil caminos.\nUno nos encontró.', subtitle:'Bastaba un minuto distinto para no habernos conocido.', instruction:'Desliza esta luz hacia la azul', action:'Acercar nuestras trayectorias', total:1, audioIndex:1, voiceIndex:1, storyIndex:1, nodes:[[-.55,-.26],[.55,.1]], done:'Entre tantas trayectorias posibles, hubo una que me llevó a encontrarte.' },
+  { name:'Tú', label:'IV · QUEDA DEMOSTRADO', title:'El universo era\nuna forma de decirte…', subtitle:'que te quiero muchísimo.', instruction:'Une la estrella que está brillando', action:'Unir la siguiente estrella', total:16, audioIndex:3, voiceIndex:3, storyIndex:3, nodes:kStops.map(t=>{const [x,y]=kPoint(t);return [x*.65,y*.28]}), done:'Entre todos los futuros posibles, deseo que encuentres uno en el que seas inmensamente feliz.' },
+];
+export const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+export function distanceToSegment(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,l=dx*dx+dy*dy,t=l?clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/l,0,1):0;return Math.hypot(p.x-a.x-dx*t,p.y-a.y-dy*t)}
+export const flightDuration=reduced=>reduced?80:6800;
+export function canCollect({phase,paused,reading,count,total,id,ordered}){return Number.isInteger(id)&&id>=0&&id<total&&phase==='playing'&&!paused&&!reading&&count<total&&(!ordered||id===count)}

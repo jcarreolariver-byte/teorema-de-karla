@@ -1,25 +1,15 @@
 # El teorema de Karla
 
-Una experiencia poética e interactiva para Karla (Jockey), con una constelación en forma de **K** y cierre exacto:
+Adaptación autónoma de la experiencia original: cuatro mundos Three.js, vuelos continuos, cinco deseos, dieciséis estrellas formando K, recorrido de cualidades y música original continua.
 
-> Que nunca te alcance el olvido, mi eterna casualidad.
+Cierre: «Que nunca te alcance el olvido, mi eterna casualidad».
 
-## Publicación gratuita con GitHub Pages
+Las grabaciones personales se omiten. Los capítulos conservan su narrativa escrita y el recorrido continúa sin esperar voces. No se genera ninguna voz.
 
-1. En **Settings → General → Danger Zone → Change repository visibility**, cambia el repositorio a **Public** (GitHub Pages en el plan gratuito lo requiere).
-2. Abre **Settings → Pages** y selecciona **Deploy from a branch**, rama **main**, carpeta **/(root)**. Guarda.
-3. La dirección prevista, cuando Pages confirme que está listo, es:
-   **https://jcarreolariver-byte.github.io/teorema-de-karla/**
-4. En teléfono, toca **Iniciar demostración** para habilitar sonido y comenzar.
+## Desarrollo
 
-## Audio
+`npm ci`, `npm test`, `npm run build`. Vite usa `/teorema-de-karla/`. No requiere backend ni claves.
 
-La experiencia funciona sin bibliotecas ni compilación: `index.html` contiene el diseño y la lógica. Incluye una atmósfera instrumental generativa provisional. Para reemplazarla con música Suno, sube tu archivo MP3 al repositorio como `audio/score.mp3`; la aplicación lo usará automáticamente en lugar del sonido generativo.
+## Publicación
 
-Las grabaciones originales para Daniela no se reutilizan porque mencionan su nombre.
-
-## Personalización
-
-En `index.html`, el objeto `gift` contiene los textos, los deseos y el cierre. La constelación K se dibuja con Canvas y el contenido se adapta a pantallas móviles.
-
-**Privacidad:** en un repositorio público, también serán públicos sus archivos, música y textos.
+GitHub Pages sirve la carpeta `docs` de `main`, que contiene el build verificado. Para actualizar: `npm run build:pages` y subir los cambios. El comando regenera `docs` con `.nojekyll`.

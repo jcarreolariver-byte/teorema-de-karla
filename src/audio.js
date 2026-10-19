@@ -1,5 +1,5 @@
 export const tracks=['origen.mp3','two-trajectories.mp3','luminous-crescendo.mp3','a-final-chord.mp3'];
-export const voices={};
+export const voices={1:'voz-encuentro.m4a',3:'voz-final.m4a'};
 export const BED=tracks[2],OVERLAP=8;
 
 // Chapters never touch the music clock. One complete piece overlaps its own tail.

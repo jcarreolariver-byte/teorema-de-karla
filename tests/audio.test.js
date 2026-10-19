@@ -7,12 +7,5 @@ class Context{constructor(){this.currentTime=0;this.destination={};this.state='r
 const setup=async()=>{globalThis.window={AudioContext:Context};const a=new Soundtrack();a.buffer=async f=>({duration:f===BED?194.36:f.includes('final')?87.552:43.648,file:f});await a.start();return a};
 test('chapter changes keep the same complete music source and clock',async()=>{const a=await setup();try{const source=a.music.source,start=source.starts[0];a.ctx.currentTime=47;await a.changeChapter(2);await a.changeChapter(1);await a.changeChapter(3);assert.equal(a.beds.size,1);assert.equal(a.music.source,source);assert.equal(source.starts[0],start);assert.equal(source.buffer.file,BED);assert.deepEqual(source.stops,[])}finally{a.dispose()}});
 test('self crossfade schedules full buffers, overlapping the tail instead of stopping it',async()=>{const a=await setup();try{const first=a.music;a.ctx.currentTime=183;a.pump();assert.equal(a.beds.size,2);const second=a.music;assert.equal(second.at,first.end-OVERLAP);assert.equal(second.source.buffer,first.source.buffer);assert.deepEqual(first.source.stops,[]);assert.ok(first.envelope.gain.events.some(e=>e[0]==='ramp'&&e[1]===0&&e[2]===first.end))}finally{a.dispose()}});
-test('omitted personal voices complete without loading any recording or blocking the story',async()=>{
- const a=await setup();try{
-  const bed=a.music;a.buffer=()=>{throw new Error('A personal recording must never be fetched')};
-  await a.narrate(1);assert.equal(a.state.voice,'ended');
-  await a.changeChapter(3);await a.narrate(3);assert.equal(a.state.voice,'ended');
-  assert.equal(a.narration,undefined);assert.equal(a.music,bed);assert.deepEqual(bed.source.stops,[]);
- }finally{a.dispose()}
-});
+test('narration ducking leaves the scheduled crossfade envelope intact and music continues after final voice',async()=>{const a=await setup();try{await a.changeChapter(3);const bed=a.music,events=JSON.stringify(bed.envelope.gain.events);await a.narrate(3);assert.equal(bed.gain.gain.value,.055);assert.equal(JSON.stringify(bed.envelope.gain.events),events);assert.equal(a.narration.source.buffer.duration,87.552);a.narration.source.onended();assert.equal(a.state.voice,'ended');assert.equal(bed.gain.gain.value,.28);assert.deepEqual(bed.source.stops,[])}finally{a.dispose()}});
 test('pause uses the same audio context for music, voice and scheduled overlap',async()=>{const a=await setup();try{await a.narrate(1);const ctx=a.ctx,bed=a.music.source;await a.pause();assert.equal(ctx.state,'suspended');await a.pause();assert.equal(a.ctx,ctx);assert.equal(a.music.source,bed);assert.equal(ctx.state,'running')}finally{a.dispose()}});

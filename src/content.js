@@ -1,5 +1,5 @@
 export const gift = {
-  name: 'Karla', date: '18 de octubre',
+  name: 'Karla', date: '20 de octubre',
   title: 'El teorema de Karla', subtitle: 'Sobre la improbable geometría de encontrarse',
   chapters: [
     { id: 'hipotesis', label: 'I · HIPÓTESIS', heading: 'Todo comenzó mucho antes',

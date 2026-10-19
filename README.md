@@ -4,7 +4,7 @@ Adaptación autónoma de la experiencia original: cuatro mundos Three.js, vuelos
 
 Cierre: «Que nunca te alcance el olvido, mi eterna casualidad».
 
-Las grabaciones personales se omiten. Los capítulos conservan su narrativa escrita y el recorrido continúa sin esperar voces. No se genera ninguna voz.
+Cumpleaños: 20 de octubre. Las dos grabaciones originales suenan completas en el encuentro y al completar la K. La música baja durante cada mensaje y recupera su volumen al terminar. No se genera ninguna voz.
 
 ## Desarrollo
 
